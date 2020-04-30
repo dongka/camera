@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             for (String id : cameraManager.getCameraIdList()) {
 
                 CameraCharacteristics cameraCharacteristics = cameraManager.getCameraCharacteristics(id);
-                Integer facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING_FRONT);
+                Integer facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING);
                 StreamConfigurationMap map = cameraCharacteristics
                         .get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                 mSensorOrientation = cameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
@@ -334,8 +334,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
             SurfaceTexture surfaceTexture = mTextureView.getSurfaceTexture();
             surfaceTexture.setDefaultBufferSize(mTextureView.getWidth(), mTextureView.getHeight());
-
-             mSurface = new Surface(surfaceTexture);
+            Log.d(TAG, "createCameraPreviewSession: "
+            + "width: " + mTextureView.getWidth() + " height: " + mTextureView.getHeight() );
+            mSurface = new Surface(surfaceTexture);
             priviewRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             priviewRequestBuilder.addTarget(mSurface);
 
